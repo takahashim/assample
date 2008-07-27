@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" viewSourceURL="srcview/index.html">
+	<mx:Script>
+		<![CDATA[
+		
+			import flash.display.Sprite;
+			import flash.display.Shape;
+
+			public var rectList:Array = new Array;
+		
+			private function drawRect(x:int, y:int, c:uint):void
+			{
+				//var rect:Shape = new Shape();
+				var rect:Sprite = new Sprite();
+				rect.graphics.beginFill(c);
+				rect.graphics.drawRect(x,y+100,100,30+100);
+				var r:Number = Math.random()*Math.PI/2;
+				trace("r:"+Math.sin(r));
+				rect.addEventListener(Event.ENTER_FRAME, function():void{
+						rect.y+=10*Math.cos(r);
+						rect.x+=10*Math.sin(r);
+						//rect.alpha*=0.95;
+						//rect.transform.matrix.tx*=0.8;
+					});
+				this.stage.addChild(rect);
+			}
+			
+			private function showObj():void
+			{
+				
+				for (var i:int=0; i<100; i++) {
+					showRect(new Event("a"));
+				}
+				//var timer:Timer=new Timer(100,100);
+				//timer.addEventListener(TimerEvent.TIMER,showRect);
+				//timer.start();
+			}
+			private function showRect(e:Event):void
+			{
+				var x:int, y:int, c:uint;
+					x = Math.random()*200;
+					y = Math.random()*100;
+					c = Math.random()*0xFFFFFF;
+					drawRect(x,y,c);				
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Button x="166" y="10" label="ボタン" id="btnShowObj" click="showObj()"/>
+	
+</mx:Application>
